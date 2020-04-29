@@ -1,0 +1,3 @@
+# ansible-vault create secret.yml
+
+ansible-playbook -i ./inventory.yml playbook.yml  --ask-vault-pass
