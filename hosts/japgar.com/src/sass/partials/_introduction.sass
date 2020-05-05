@@ -1,0 +1,122 @@
+.introduction
+  position: relative
+  width: 500px
+  min-height: 100vh
+  &__wrapper
+    max-width: 350px
+    padding: 4rem 2rem
+
+.header
+  display: flex
+  align-items: center
+  &__symbol
+    width: 85px
+    height: 85px
+    margin-right: 2rem
+    border-radius: 50%
+    background:
+      image: url("/images/avatar.jpg")
+      position: center
+      size: cover
+      repeat: no-repeat
+
+  &__name
+    margin: 0
+    color: $tertiary
+    +font-size(42)
+    font-weight: 300
+    line-height: 3rem
+    text-transform: uppercase
+
+    span
+      display: block
+
+.basics,
+.socials
+  margin-top: 6rem
+
+  &__el
+    margin-bottom: 1rem
+
+    &:last-child
+      margin-bottom: 0
+    
+    .label
+      display: inline-block
+      width: 85px
+      margin-right: 2rem
+      color: $tertiary
+      font-weight: 700
+      & + a 
+        .social-icon
+          margin-right: 0.5rem
+          vertical-align: middle
+          display: inline-block
+          height: 1.5rem
+          width: 1.5rem
+          transition: filter 0.2s
+          filter: grayscale(0%)
+          img
+            height: 100%
+        &:not(:hover) .social-icon 
+          filter: grayscale(100%)
+      
+
+
+.blurb
+  margin-top: 6rem
+
+  span
+    color: $tertiary
+    font-weight: 700
+
+@media (max-width: $breakpoint)
+  .introduction
+    width: 100%
+    min-height: 100%
+
+    &__wrapper
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-between
+      max-width: 900px
+
+  .header
+    align-items: flex-start
+    width: 50%
+
+  .basics
+    width: 50%
+    margin-top: 1rem
+
+  .socials
+    width: 50%
+    margin-top: 3rem
+
+  .blurb
+    width: calc(50% - 3rem)
+    margin-top: 3rem
+    padding-right: 3rem
+
+@media (max-width: 735px)
+  .introduction
+
+    &__wrapper
+      display: block
+      padding-top: 3rem
+
+  .header
+    align-items: center
+    width: 100%
+
+  .basics
+    width: 100%
+    margin-top: 3rem
+
+  .socials
+    width: 100%
+
+  .blurb
+    width: 100%
+    max-width: 350px
+    padding-right: 0

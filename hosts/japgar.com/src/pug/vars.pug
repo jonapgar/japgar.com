@@ -1,0 +1,116 @@
+//-------------------- Introduction --------------------//
+
+//- HTML title & meta
+-
+  head = {
+    title: "Jon Apgar | Software Developer",
+    description: "Jon Apgar software developer",
+    keywords: "resume, software developer, full-stack developer",
+    author: "Jon Apgar"
+  }
+
+//- Header
+    Set header image in introduction.sass
+-
+  name = {
+    first: "Jon",
+    last: "Apgar"
+  }
+
+//- Basic contact and online presence
+    ONLY change the phone numbers, maintain "tel:" in the href
+    ONLY change the email addresses, maintain "mailto:" in the href
+-
+  basics = {
+    //- Call: {
+    //-   display: "555-555-5555",
+    //-   href: "tel:555-555-5555"
+    //- },
+    email: {
+      display: "apgar.jon@gmail.com",
+      href: "mailto:apgar.jon@gmail.com"
+    },
+    web: {
+      display: "japgar.com",
+      href: "https://japgar.com"
+    }
+  }
+
+
+//- Objective / Executive Summary / About
+- blurb = "<span>Hi,</span> I'm an experienced full-stack developer specializing in big-data, networking, analytics and visualization. I have led developer teams in marketing, education, and simulation fields."
+
+//- Online elsewhere
+-
+  socials = {
+
+    GitHub: {
+      icon:"/images/GitHub-Mark-64px.png",
+      display: "jonapgar",
+      url: "https://github.com/jonapgar/japgar.com"
+    },
+    LinkedIn: {
+      icon:"/images/LI-In-Bug.png",
+      display: "Jon Apgar",
+      url: "https://www.linkedin.com/in/jon-apgar-7b3361a4/"
+    }
+  }
+
+//-------------------- Primary --------------------//
+
+//- Experience section
+    If no url exists: remove the "url" option entirely
+-
+  experience = {
+    heading: "Experience",
+    content: {
+      "Datablocks Inc.": {
+        url:"https://datablocks.net",
+        date: "Sep 2013 - Apr 2020",
+        role: "Lead Developer",
+        description: "For six years, I was the lead full stack developer for Datablocks Inc., creating web applications for management, delivery and analysis of online advertising. I led development teams for several large projects used by thousands of advertisers and millions of end-users. Through this role I gained valuable experience and knowledge of the adtech ecosystem including adops, anti-fraud, brand safety, anti-malvertising, and payment systems."
+      },
+      "CAE": {
+        url:"https://www.cae.com",
+        date: "Sep 2011 - Sep 2013",
+        role: "Multimedia Developer",
+        description: "At CAE I was a Lead Multimedia Developer for a team of seven developers creating e-learning products for the aviation and defence industries. Our projects ranged from simple websites to 3D simulations and educational games. In this role I was privileged to work directly with subject-matter experts in a variety of sensitive and highly technical fields. "
+      },
+      "Sandy Lake Board of Education": {
+        url:"http://sandylake.firstnation.ca/?q=sandy-lake-board-education",
+        date: "Sep 2010 - Jun 2011",
+        role: "Substitute Teacher / Network Administrator",
+        description: "For one year, my partner and I lived in a remote fly-in First Nation in Northern Ontario, Canada. I had the incredible opportunity to work as a both subtitute teacher and network administrator for the local school board. During that year I learned much about youth and indigenous culture, and I was challenged to mature as a person, peer and leader."
+      },
+      "Nipissing University": {
+        url:"https://www.nipissingu.ca/",
+        date: "Sep 2009 - Feb 2010",
+        role: "Web Developer",
+        description: "At Nipissing University I worked on content-management systems, assisted professors online course material, and developed multimedia content for the university website."
+      }
+    }
+  }
+
+
+//- Education section
+-
+  education = {
+    heading: "Education",
+    content: {
+      "B.Sc. in Biological Anthropology": "University of Toronto"
+    }
+  }
+
+
+//- Hobbies section
+-
+  hobbies = {
+    heading: "Hobbies",
+    list: "Music, Mountain Biking, Woodworking"
+  }
+
+-
+  skills = {
+    heading: "Skills",
+    list: "javascript, sql, html, css, python, ruby, php, C#, nodejs, linux, tensorflow, hadoop, elastic, nginx, ansible, puppet, docker, crypto, machine learning, malware analysis, adtech/martech, brand-safety, privacy tech, localization, devops, continuous integration, project management, leadership."
+  }

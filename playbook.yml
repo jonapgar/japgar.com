@@ -1,13 +1,8 @@
 ---
-- hosts: japgar.com
-  vars_files:
-    - secret.yml
+- hosts: all
   become: true
   gather_facts: no
-  # pre_tasks:
-  #   - raw: yum install -y python-simplejson
   tasks:
-    
     - name: Add epel-release repo
       yum:
         name: epel-release
@@ -31,7 +26,7 @@
         name: certbot
         state: present
 
-    - name: Create letsencrypt directory
+    - name: Create letsencrypt www directory
       file: name=/var/www/letsencrypt state=directory
 
     - name: Install system nginx config
@@ -39,41 +34,67 @@
         src: templates/nginx.conf.j2
         dest: /etc/nginx/nginx.conf
 
-    - name: Install nginx site for letsencrypt requests
+    - name: Install nginx http server/location for letsencrypt acme-challenge
       template:
         src: templates/nginx-http.conf.j2
         dest: /etc/nginx/conf.d/{{ inventory_hostname }}.http.conf
 
-    - name: Reload nginx to activate letsencrypt site
+    - name: Reload nginx for acme-challenge
       service: name=nginx state=restarted
   
     - name: Copy host files
+      tags: ["site"]
       copy:
-        src: ./hosts/{{ inventory_hostname }}
+        src: ./hosts/{{ inventory_hostname }}/dist/
         dest: /var/www/{{ inventory_hostname }}
-    - name: Create letsencrypt certificate
-      shell: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ item }}
-      args:
-        creates: /etc/letsencrypt/live/{{ item }}
-      loop: "{{ domains }}"
+    
+    - name: SSL tasks block
+      tags: ["ssl"]
+      block: 
+      - name: Create letsencrypt csr directory
+        file: name=/var/ssl/{{ inventory_hostname }} state=directory mode=0600
+      
+      - name: Create openssl.cnf
+        template:
+          src: templates/openssl.cnf.j2
+          dest: /var/ssl/{{ inventory_hostname }}/openssl.cnf
 
+      - name: Create EC privkey
+        shell: openssl ecparam -genkey -name secp384r1 -out /var/ssl/{{ inventory_hostname }}/privkey.pem
+        args:
+          creates: /var/ssl/{{ inventory_hostname }}/privkey.pem
+
+      - name: Create CSR
+        shell: | 
+          cd /var/ssl/{{ inventory_hostname }}
+          openssl ecparam -genkey -name secp384r1 -out privkey.pem
+          openssl req -new -config openssl.cnf -key privkey.pem -out csr.pem
+        args:
+          creates: /var/ssl/{{ inventory_hostname }}/csr.pem
+
+      - name: Create letsencrypt certificate
+        shell: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert
+        args:
+          creates: /var/ssl/{{ inventory_hostname }}/cert
+      - name: Add letsencrypt cronjob for cert renewal
+        tags: ["cron"]
+        cron:
+          name: letsencrypt_renewal_{{ inventory_hostname }}
+          special_time: weekly
+          job: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert && service nginx reload
+
+    
     - name: Generate dhparams
       shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
       args:
         creates: /etc/nginx/dhparams.pem
 
     - name: Install nginx site for specified site
+      tags: ["https"]
       template:
         src: templates/nginx-https.conf.j2
-        dest: /etc/nginx/conf.d/{{ inventory_hostname }}.com.https.conf
-
-    
+        dest: /etc/nginx/conf.d/{{ inventory_hostname }}.https.conf
 
     - name: Reload nginx to activate specified site
-      service: name=nginx state=restarted
-
-    - name: Add letsencrypt cronjob for cert renewal
-      cron:
-        name: letsencrypt_renewal
-        special_time: weekly
-        job: certbot-auto --renew certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(" -d ") }} && service nginx reload
+      tags: ["https"]
+      service: name=nginx state=reloaded

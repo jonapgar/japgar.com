@@ -1,0 +1,149 @@
+.primary
+  position: relative
+  flex-grow: 1
+  background: linear-gradient(180deg, $primary, $primary 50%, $white)
+  
+  &__wrapper
+    max-width: 900px
+    padding: 4rem 2rem
+
+  &__heading
+    // border-top-left-radius: 2rem
+    // border-bottom-left-radius: 2rem
+    // border-radius: 2rem;
+    // padding: 0 0.5rem;
+    margin: 0 0 1.5rem 0
+    color: $highlight
+    // background: $h-background
+    +font-size(20)
+    font-weight: 700
+    line-height: 3rem
+    text-transform: uppercase
+
+.experience
+
+  &__el
+    margin-bottom: 3rem
+
+    &:last-child
+      margin-bottom: 0
+
+    .description
+      display: flex
+      justify-content: space-between
+      // color: $link-color
+    .short
+      width: 200px
+      margin-right: 3rem
+
+      &__title
+        margin-top: 0
+        color: $tertiary
+        +font-size(15)
+        font-weight: 700
+
+    .extended
+      flex: 1
+      &__role
+        margin-top: 0
+        color: $tertiary
+        +font-size(15)
+        font-weight: 700
+
+      &__description
+        max-width: 600px
+        margin-bottom: 0
+
+.additional
+  display: flex
+  margin-top: 6rem
+
+  .about
+    width: 50%
+    padding-right: 3rem
+
+  .technical
+    width: 50%
+
+.schooling
+  margin-bottom: 4rem
+
+.education
+
+  &__el
+    margin-bottom: 2rem
+
+    &:last-child
+      margin-bottom: 0
+
+    .degree
+      margin-bottom: 10px
+      color: $tertiary
+      font-weight: 700
+
+    .school
+      margin-bottom: 0
+
+.hobbies
+  margin-bottom: 0
+
+.skills
+  display: flex
+  flex-wrap: wrap
+
+  &__el
+    display: flex
+    align-items: center
+    width: 25%
+    margin-bottom: 2rem
+
+    svg
+      width: 100%
+      max-width: 40px
+      max-height: 40px
+
+.technical__list
+  margin-bottom: 0
+  // +font-size(11)
+  // line-height: 1.25rem
+
+@media (max-width: 735px)
+  .experience
+
+    &__el
+
+      .description
+        display: block
+
+      .short
+        width: 100%
+        max-width: 100%
+        margin: 0 0 1.5rem 0
+
+        &__title
+          display: inline-block
+          margin: 0 2rem 0 0
+
+      .extended
+        
+        &__description
+          max-width: 100%
+
+  .additional
+    flex-direction: column
+    margin-top: 4rem
+
+    .about
+      order: 2
+      width: 100%
+      padding-right: 0
+
+    .technical
+      order: 1
+      width: 100%
+
+  .schooling
+    margin-bottom: 3rem
+
+  .technical
+    margin-bottom: 4rem

@@ -1,0 +1,105 @@
+doctype
+html(lang="en")
+  include ./../pug/vars.pug
+  head
+    title= head.title
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="description" content= head.description)
+    meta(name="keywords" content= head.keywords)
+    meta(name="author" content= head.author)
+    meta(name="referrer" content="no-referrer")
+    link(rel="stylesheet" href="/css/main.css")
+    link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+    link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+    link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+    link(rel="manifest" href="/site.webmanifest")
+  body
+
+    .resume
+      .introduction
+        .introduction__wrapper.l-wrapper
+          header.header
+            .header__symbol
+            h1.header__name
+              span= name.first
+              span= name.last
+          ul.basics
+            each val, key in basics
+              li.basics__el
+                span.label= key
+                a(class="info" href= val.href target="_blank")= val.display
+          p.blurb !{blurb}
+          ul.socials
+            each val, key in socials
+              li.socials__el
+                span.label= key
+                a(class="info" href= val.url target="_blank") 
+                  span.social-icon 
+                    img(src= val.icon)
+                  span= val.display
+      .primary
+        .primary__wrapper.l-wrapper
+          h2.primary__heading= experience.heading
+          ul.experience
+            each val, key in experience.content
+              li.experience__el
+                .description
+                  .short
+                    h3.short__title
+                      a(href= val.url target="_blank")= key
+                    span.short__date= val.date
+                  .extended
+                    h3.extended__role= val.role
+                    p.extended__description= val.description
+          .additional
+            .about
+              .schooling
+                h2.primary__heading= education.heading
+                ul.education
+                  each val, key in education.content
+                    li.education__el
+                      p.degree= val
+                      p.school= key
+              .interests
+                h2.primary__heading= hobbies.heading
+                p.hobbies= hobbies.list
+        
+            .technical
+              h2.primary__heading= skills.heading
+              
+                //- li.skills__el
+                //-   include ../assets/img/skills/javascript.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/react.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/angular.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/backbone.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/jquery.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/electron.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/redux.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/ngrx.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/jest.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/jasmine.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/webpack.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/gulp.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/html5.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/css3.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/sass.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/git.svg
+                //- li.skills__el
+                //-   include ../assets/img/skills/github.svg
+              p.technical__list= skills.list

@@ -1,3 +1,2 @@
-# ansible-vault create secret.yml
-
-ansible-playbook -i ./inventory.yml playbook.yml  --ask-vault-pass
+find hosts -type d -maxdepth 1 -mindepth 1 -exec sh -c "cd {} && npm install && npm run build" \;
+ansible-playbook -i ./inventory.yml playbook.yml --vault-password-file PASSWORD
