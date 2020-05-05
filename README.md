@@ -1,6 +1,6 @@
-# japgar.com
+# [japgar.com](https://japgar.com)
 
-This repository builds, delivers and serves my resume at japgar.com. It is intended to be a quick demo of some of my technical skills. It is not intended to be used in a production environment or to be reused for non-demonstration purposes.
+This repository builds, delivers and serves my resume at [japgar.com](https://japgar.com) and [japgar.ca](https://japgar.ca). It is intended to be a quick demo of some of my technical skills. It is not intended to be used in a production environment or to be reused for non-demonstration purposes.
 
 
 ## Setup
@@ -17,3 +17,6 @@ This repository builds, delivers and serves my resume at japgar.com. It is inten
     ````
 4. Add directories in `./hosts` with names corresponding to the hosts you specified in `inventory.yml`. Each of these host directories must contain a `dist` subdirectory containing static files which will be served by nginx. In addition, each host directory must contain a `package.json` file containing a "build" script (to populate the dist directory).
 5. Run the script `./run`
+
+## Credits
+ - [Bucky Maler](https://github.com/BuckyMaler/me) for the basic pug resume template.
