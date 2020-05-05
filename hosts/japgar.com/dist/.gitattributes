@@ -1,0 +1,2 @@
+*.html merge=ours
+*.css merge=ours

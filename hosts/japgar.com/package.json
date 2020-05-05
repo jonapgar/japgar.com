@@ -1,0 +1,25 @@
+{
+  "name": "japgar.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-sass": "node-sass --output-style compressed src/sass/main.sass | postcss -u autoprefixer -o dist/css/main.css",
+    "build-pug": "pug src/site -o dist/",
+    "build": "npm run build-pug && npm run build-sass",
+    "test": "http-server dist -c 0 -o",
+    "watch": "onchange 'src/**/*.pug' 'src/sass/**/*.{sass,scss}' -- npm run build"
+  },
+  "author": "jonapgar",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.7.6",
+    "http-server": "^0.12.3",
+    "node-sass": "^4.14.0",
+    "onchange": "^7.0.2",
+    "postcss": "^7.0.27",
+    "postcss-cli": "^7.1.1",
+    "pug": "^2.0.4",
+    "pug-cli": "^1.0.0-alpha6"
+  }
+}
