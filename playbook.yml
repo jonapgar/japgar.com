@@ -73,7 +73,7 @@
           creates: /var/ssl/{{ inventory_hostname }}/csr.pem
 
       - name: Create letsencrypt certificate
-        shell: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert
+        shell: cd  /var/ssl/{{ inventory_hostname }} && rm -rf ./cert ./*_chain.pem && certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert
         args:
           creates: /var/ssl/{{ inventory_hostname }}/cert
       - name: Add letsencrypt cronjob for cert renewal
@@ -81,7 +81,7 @@
         cron:
           name: letsencrypt_renewal_{{ inventory_hostname }}
           special_time: weekly
-          job: certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert && service nginx reload
+          job: cd  /var/ssl/{{ inventory_hostname }} && rm -rf ./cert ./*_chain.pem && certbot certonly -n --webroot -w /var/www/letsencrypt -m {{ email }} --agree-tos -d {{ domains | join(' -d ') }} --csr /var/ssl/{{ inventory_hostname }}/csr.pem --cert-path /var/ssl/{{ inventory_hostname }}/cert && service nginx reload
 
     
     - name: Generate dhparams
